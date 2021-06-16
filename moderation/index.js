@@ -7,10 +7,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-app.post('/events', async (req, res) => {
-  const { type, data } = req.body;
-  console.log(`Received event ${type}`);
-
+const handleEvent = async (type, data) => {
   if (type === 'CommentCreated') {
     const { content } = data;
     const status = content.includes('orange') ? 'rejected' : 'aproved';
@@ -23,10 +20,28 @@ app.post('/events', async (req, res) => {
       },
     });
   }
+};
+
+app.post('/events', async (req, res) => {
+  const { type, data } = req.body;
+  console.log(`Received event ${type}`);
+
+  handleEvent(type, data);
 
   res.send({});
 });
 
-app.listen(4003, () => {
+app.listen(4003, async () => {
   console.log('Moderation Service listening on 4003');
+  try {
+    const res = await axios.get('http://localhost:4005/events');
+
+    for (const event of res.data) {
+      console.log('Processing event:', event.type);
+
+      handleEvent(event.type, event.data);
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
 });
