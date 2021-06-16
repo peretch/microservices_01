@@ -7,10 +7,17 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-app.post('/events', async (req, res) => {
-  const { type, data } = req.body;
+const events = [];
 
+app.get('/events', async (req, res) => {
+  res.send(events);
+});
+
+app.post('/events', async (req, res) => {
+  const event = req.body;
+  const { type, data } = event;
   console.log(`Received event ${type}`);
+  events.push(event);
 
   axios
     .post('http://localhost:4000/events', { type, data })
