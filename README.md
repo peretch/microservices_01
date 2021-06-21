@@ -51,9 +51,8 @@ Microservices communicates through requests.
 Microservices communicates through events.
 
 ## Infra section
-
-### Docker useful commands
-
+### Commands
+#### Docker useful commands
 - `docker build -t peretch/posts .` - Build a tagged image based on `Dockerfile` in current directory.
 - `docker run <image id or image tag>` - Create and start a container based on the provided iage id or tag.
 - `docker run -it <image id or imagen tag> <cmd>` - Create and start container, but also override the default command
@@ -61,12 +60,20 @@ Microservices communicates through events.
 - `docker exec -it <containerId> <cmd>` - Execute the given command in a running container.
 - `docker logs <containerId>` - Print out logs from given container
 
-
-### K8s useful commands
-
+#### K8s useful commands
 - `kubectl kubectl get pods` - Print info about running pods
 - `kubectl exec -it <podName> <cmd>` - Execute a given command in running pod
 - `kubectl logs <podName>` - Print out logs from the given pod
 - `kubectl delete pod <podName>` - Deletes a pod
 - `kubectl apply -f <configFileName>` - Tells kubernetes to process the config
 - `kubectl describe pod <podName>` - Print out some information about the running pod
+
+#### Deployment commands 
+- `kubectl get deployments` - List all running deployments
+- `kubectl describe deployment <deplName>` - Print out details of a specific deployment
+- `kubectl apply -f <configFileName>` - Create a deployent out of a config file
+- `kubectl delete deployment <deplName>` - Delete a deployent
+- `kubectl rollout restart deployment <deplName>` - Restart a deployment
+### Extra info
+- An example of deployment configuration file can be found in `infra/k8s/posts-depl.yaml`
+- If we **delete** a **pod related to** a **running deployment**, it **will create a new one**`.

@@ -1,0 +1,19 @@
+# K8s is extensible - we can add in our own custom objects. This specifies the et of object we want K8s to look at.
+apiVersion: v1
+
+# Type of object we want to create
+kind: Pod
+
+# Config options for the object we are about to create
+metadata:
+  # We can use whatever name we want
+  name: posts
+
+# the exact attibutes we want to apply to object
+spec:
+  # We can create multiple containers inside a single pod
+  containers:
+    # We can use whatever name we want
+    - name: posts
+    # If you not specify a version, "latest" will be user. Is good practice (and safer) to add version allways.
+      image: peretch/microservices_posts:0.0.1
