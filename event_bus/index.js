@@ -20,17 +20,17 @@ app.post('/events', async (req, res) => {
   events.push(event);
 
   axios
-    .post('http://localhost:4000/events', { type, data })
+    .post('http://posts-srv:4000/events', { type, data })
     .catch((error) => console.log('error'));
-  axios
-    .post('http://localhost:4001/events', { type, data })
-    .catch((error) => console.log('error'));
-  axios
-    .post('http://localhost:4002/events', { type, data })
-    .catch((error) => console.log('error'));
-  axios
-    .post('http://localhost:4003/events', { type, data })
-    .catch((error) => console.log('error'));
+  // axios
+  //   .post('http://comments-srv:4001/events', { type, data })
+  //   .catch((error) => console.log('error'));
+  // axios
+  //   .post('http://query-srv:4002/events', { type, data })
+  //   .catch((error) => console.log('error'));
+  // axios
+  //   .post('http://moderation-srv:4003/events', { type, data })
+  //   .catch((error) => console.log('error'));
 
   res.send({ status: 'OK' });
 });

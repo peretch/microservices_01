@@ -7,26 +7,42 @@ kind: Deployment
 # Config options for the object we are about to create
 metadata:
   # We can use whatever name we want
-  name: posts-depl
+  name: event-bus-depl
 
 # the exact attibutes we want to apply to object
 spec:
   # Number of pods running some particular image
   replicas: 1
-  # Match al pods with label ("app" => "posts")
+  # Match al pods with label ("app" => "event-bus")
   selector:
     matchLabels:
-      app: posts
+      app: event-bus
   # Exact configuration of the object that the deployment is going to make
   template:
     metadata:
       # Labels asociated to this template
       labels:
-        app: posts
+        app: event-bus
     # This is another spec (just like it's parent). Here I create a container
     spec:
       containers:
-        - name: post
+        - name: event-bus
           # image: peretch/microservices_posts:0.0.5
           # If we use latest tag, the image must be pushed in docker hub
-          image: peretch/microservices_posts:latest
+          image: peretch/microservices_event_bus:latest
+---
+# HERE CLUSTER IP CONFIGURATION
+# COULD BE IN A DIFFERENT CONFIG FILE
+apiVersion: v1
+kind: Service
+metadata:
+  name: event-bus-srv
+spec:
+  selector:
+    app: event-bus
+  type: ClusterIP
+  ports:
+    - name: event-bus
+      protocol: TCP
+      port: 4005
+      targetPort: 4005

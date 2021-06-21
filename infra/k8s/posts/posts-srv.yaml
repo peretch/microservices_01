@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: posts-srv-dev
+spec:
+  type: NodePort
+  selector:
+    # This is the pod name described in "template" inside posts-depl.yaml (metadata > labels > app:posts)
+    app: posts
+  ports:
+    - name: posts
+      protocol: TCP
+      # In general, port and targetPort will be identical
+      # Node port ("virtual machine"/"pod" used port when service is called)
+      port: 4000
+      # Port used whe pod is called by the service
+      targetPort: 4000

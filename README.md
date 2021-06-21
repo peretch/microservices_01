@@ -50,7 +50,7 @@ Microservices communicates through requests.
 #### Asynchronous
 Microservices communicates through events.
 
-## Infra section
+## Infrastructure
 ### Commands
 #### Docker useful commands
 - `docker build -t peretch/posts .` - Build a tagged image based on `Dockerfile` in current directory.
@@ -71,9 +71,18 @@ Microservices communicates through events.
 #### Deployment commands 
 - `kubectl get deployments` - List all running deployments
 - `kubectl describe deployment <deplName>` - Print out details of a specific deployment
-- `kubectl apply -f <configFileName>` - Create a deployent out of a config file
+- `kubectl get services` - List all running services (usable for visualize **Node Ports**)
+- `kubectl describe service <servName>` - Print out details of a specific service
+- `kubectl apply -f <configFileName>` - Create a deployent o service or whatever out of a config file
 - `kubectl delete deployment <deplName>` - Delete a deployent
 - `kubectl rollout restart deployment <deplName>` - Restart a deployment
-### Extra info
+
+### Deployments
 - An example of deployment configuration file can be found in `infra/k8s/posts-depl.yaml`
 - If we **delete** a **pod related to** a **running deployment**, it **will create a new one**`.
+
+### Services
+- **Cluster IP** - Sets up an easy-to-remember URL to access a pod (only exposes pods in the cluster)
+- **Node Port** - Makes a pod accesible from outside the cluster (usually used only for dev purposes)
+- **Load balancer** - Makes a pod accessible from outside the cluster (this is the right way to expose a pod to te outside world)
+- **External Name** = Redirects an in-cluster request to a CNAME url
