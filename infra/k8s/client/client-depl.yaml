@@ -1,0 +1,49 @@
+# K8s is extensible - we can add in our own custom objects. This specifies the et of object we want K8s to look at.
+apiVersion: apps/v1
+
+# Type of object we want to create
+kind: Deployment
+
+# Config options for the object we are about to create
+metadata:
+  # We can use whatever name we want
+  name: client-depl
+
+# the exact attibutes we want to apply to object
+spec:
+  # Number of pods running some particular image
+  replicas: 1
+  # Match al pods with label ("app" => "client")
+  selector:
+    matchLabels:
+      app: client
+  # Exact configuration of the object that the deployment is going to make
+  template:
+    metadata:
+      # Labels asociated to this template
+      labels:
+        app: client
+    # This is another spec (just like it's parent). Here I create a container
+    spec:
+      containers:
+        - name: post
+          # image: peretch/microservices_client:0.0.5
+          # If we use latest tag, the image must be pushed in docker hub
+          image: peretch/microservices_client:latest
+---
+# HERE CLUSTER IP CONFIGURATION
+# COULD BE IN A DIFFERENT CONFIG FILE
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-srv
+spec:
+  selector:
+    app: client
+  type: ClusterIP
+  ports:
+    - name: client
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
+

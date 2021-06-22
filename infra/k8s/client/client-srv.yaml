@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-srv-dev
+spec:
+  type: NodePort
+  selector:
+    # This is the pod name described in "template" inside client-depl.yaml (metadata > labels > app:client)
+    app: client
+  ports:
+    - name: client
+      protocol: TCP
+      # In general, port and targetPort will be identical
+      # Node port ("virtual machine"/"pod" used port when service is called)
+      port: 3000
+      # Port used whe pod is called by the service
+      targetPort: 3000
