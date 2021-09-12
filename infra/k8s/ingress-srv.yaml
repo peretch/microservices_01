@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-srv
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+    # Routing routes to teach how to reach pods
+    - host: microservices01-posts.com
+      http:
+        paths:
+          - path: /posts
+            backend:
+              serviceName: posts-srv-dev
+              servicePort: 4000
