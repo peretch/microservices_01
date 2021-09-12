@@ -8,7 +8,7 @@ const PostCreate = ({ postId }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    await axios.post(`http://comments-srv:4001/posts/${postId}/comments`, {
+    await axios.post(`http://microservices01-posts.com/posts/${postId}/comments`, {
       content,
     });
 

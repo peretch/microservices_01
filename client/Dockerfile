@@ -1,5 +1,7 @@
 FROM node:alpine
 
+ENV CI=true
+
 # Set WORKDIR directory
 WORKDIR /usr/app
 
