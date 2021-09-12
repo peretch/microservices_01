@@ -8,9 +8,12 @@ const PostCreate = ({ postId }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    await axios.post(`http://microservices01-posts.com/posts/${postId}/comments`, {
-      content,
-    });
+    await axios.post(
+      `http://microservices01-posts.com/posts/${postId}/comments`,
+      {
+        content,
+      }
+    );
 
     setContent('');
   };

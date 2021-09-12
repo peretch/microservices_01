@@ -4,13 +4,28 @@ metadata:
   name: ingress-srv
   annotations:
     kubernetes.io/ingress.class: nginx
+    # Allows us to use regular expresions
+    nginx.ingress.kubernetes.io/use-regex: 'true'
 spec:
   rules:
     # Routing routes to teach how to reach pods
     - host: microservices01-posts.com
       http:
         paths:
-          - path: /posts
+          - path: /posts/create
             backend:
               serviceName: posts-srv-dev
               servicePort: 4000
+          - path: /posts/?(.*)/comments
+            backend:
+              serviceName: comments-srv-dev
+              servicePort: 4001
+          - path: /posts
+            backend:
+              serviceName: query-srv-dev
+              servicePort: 4002
+          # Must be at the end
+          - path: /?(.*)
+            backend:
+              serviceName: client-srv-dev
+              servicePort: 3000
