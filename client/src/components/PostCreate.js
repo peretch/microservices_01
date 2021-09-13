@@ -16,7 +16,7 @@ const PostCreate = () => {
 
   return (
     <div className="w-full mt-4">
-      <h1 className="text-center text-xl">Create post</h1>
+      <h1 className="text-center text-xl">Create post!</h1>
       <form
         onSubmit={onSubmit}
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"

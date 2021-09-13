@@ -1,0 +1,65 @@
+apiVersion: skaffold/v2alpha2
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
+build:
+  local:
+    push: false
+  artifacts:
+    # Some to maintain
+    - image: peretch/microservices_client
+      # Client directory
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            # If we change a JAVASCRIPT file, skaffold with COPY THE FILE in our pod
+            # If we change a NON JAVASCRIPT file, COMPLETE REBUILD will be excecuted (for example if you updatedependencies)
+            src: "src/**/*.js"
+    - image: peretch/microservices_posts
+      context: posts
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: "*.js"
+    - image: peretch/microservices_comments
+      context: comments
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: "*.js"
+    - image: peretch/microservices_query
+      context: query
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: "*.js"
+    - image: peretch/microservices_moderation
+      context: moderation
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: "*.js"
+    - image: peretch/microservices_event_bus
+      # event_bus directory
+      context: event_bus
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            # If we change a JAVASCRIPT file, skaffold with COPY THE FILE in our docker
+            # If we change a NON JAVASCRIPT file, COMPLETE REBUILD will be excecuted (for example if you updatedependencies)
+            src: "*.js"

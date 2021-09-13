@@ -55,6 +55,9 @@ We will create two different services, one for each entity in our project.
 - `kubectl delete deployment <deplName>` - Delete a deployent
 - `kubectl rollout restart deployment <deplName>` - Restart a deployment
 
+#### Skaffold
+- `skaffold run dev` - Runs all config files declared inside `./skaffold.yaml`
+
 ### Deployments
 - An example of deployment configuration file can be found in `infra/k8s/posts-depl.yaml`
 - If we **delete** a **pod related to** a **running deployment**, it **will create a new one**`.

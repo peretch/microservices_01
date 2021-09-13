@@ -5,7 +5,7 @@ import PostList from './components/PostList';
 const App = () => (
   <div className="container mx-auto">
     <div className="text-xl text-center m-4">
-      <h1>Blog app</h1>
+      <h1>Blog app updated :D</h1>
     </div>
     <div className="flex">
       <div className="w-1/5" />
